@@ -1,0 +1,35 @@
+// TRAVERSE ARRAY CELL ALL FOUR SIDE
+          
+          ll upX = xx-1, upY = yy;
+					ll downX = xx+1, downY = yy;
+					ll leftX = xx, leftY = yy-1;
+					ll rightX = xx, rightY = yy+1;
+     
+					// up
+					if((upX>=0) && arr[upX][upY]>0)
+					{
+
+					}
+     
+					// down
+					if((downX<=(n-1)) && arr[downX][downY]>0)
+					{
+
+					}
+     
+					// left
+					if((leftY>=0) && arr[leftX][leftY]>0)
+					{
+
+					}
+     
+					// right
+					if((rightY<=(m-1)) && arr[rightX][rightY]>0)
+					{
+
+					}
+
+
+
+
+    
