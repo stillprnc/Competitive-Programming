@@ -16,9 +16,19 @@
             "#define ll long long",
             "#define ld long double",
             "#define inf std::numeric_limits<int>::max();",
-            "#define mod 10000000007",
             "#define yup cout<<\"YES\"<<endl;",
-            "#define nope cout<<\"NO\"<<endl;",            
+            "#define nope cout<<\"NO\"<<endl;",   
+            
+            "const int MOD = 1e9+7;",
+            "ll binaryExpo(ll base, ll e)",
+            "{",
+                "\tll res=1;",
+                "\twhile (e)",
+                "\t{",
+                    "\t\tif(e&1) (res *= base)%=MOD;",
+                    "\t\t(base *= base)%=MOD; e/=2;",
+                "\t} return res;",
+            "}",
             
             "\nvoid solutioN()",
             "{",
@@ -35,7 +45,7 @@
                 "\tios_base::sync_with_stdio(false);",
                 "\tsolve_mul();",
                 "\t//solve_single();",
-            "}"
+            "}",
 
 
 
