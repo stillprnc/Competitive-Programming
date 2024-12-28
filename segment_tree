@@ -1,0 +1,109 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct segmentTree
+{
+	int n;
+	vector<int> segTree;
+
+	void init(int _n)
+	{
+		this->n = _n;
+		segTree.resize(4*n,0);
+	}
+
+
+	int comb(int a, int b)
+	{
+		return a+b;
+	}
+
+	// building the segment tree.
+	void build(vector<int> &v, int start, int ending, int node)
+	{
+		if(start==ending)
+		{
+			segTree[node]=v[start];
+			return;
+		}
+
+		int mid = (start+ending)/2;
+		build(v, start, mid, (2*node)+1);
+		build(v, mid+1, ending, (2*node)+2);
+		segTree[node]=comb(segTree[2*node+1], segTree[2*node+2]);
+	}
+
+	// updating the seg tree.
+	void update(int start, int ending, int node, int indToUpd, int newVal)
+	{
+		if(start==ending)
+        {
+            segTree[node]=newVal;
+            return;
+        }
+    
+        int mid = (start+ending)/2;
+        if(indToUpd<=mid)  
+        update(start, mid, (2*node)+1, indToUpd, newVal);
+        else if(indToUpd>mid)
+        update(mid+1, ending, (2*node)+2, indToUpd, newVal);
+
+        segTree[node]=comb(segTree[2*node+1], segTree[2*node+2]);
+		return;
+	}
+
+	// querying on seg tree.
+	int query(int start, int ending, int node, int l, int r)
+	{
+		if(start>r || ending<l) return 0;
+		if(start>=l && ending<=r) return segTree[node];
+
+		int mid = (start+ending)/2;
+		int q1 = query(start, mid, (2*node)+1, l, r);
+		int q2 = query(mid+1, ending, (2*node)+2, l, r);
+		return comb(q1,q2);
+	}
+
+	void printSegTree()
+	{
+		for(auto it : segTree)
+		    cout<< it << " "; cout<<endl;
+	}
+};
+
+
+int main()
+{
+	vector<int> v{2,4,2,1,1,6,3,1};
+	int n = v.size();
+	// for(auto it : v) cout<< it << " "; return 0;
+
+	segmentTree tree;
+	tree.init(n);
+
+	// build
+	tree.build(v, 0, n-1, 0);
+	tree.printSegTree();
+
+	// query
+	int qq; cin>> qq;
+	while (qq--)
+	{
+		int l,r; cin>> l >> r;
+		int ans = tree.query(0, n-1, 0, l, r);
+		cout<<ans<<endl;
+	}
+
+	// update
+	int upd; cin>> upd;
+	while (upd--)
+	{
+		int ind, val; cin>> ind >> val;
+		v[ind]=val;
+		tree.update(0,n-1,0,ind,val);
+		
+		cout<<endl;
+		for(int i=0; i<n; i++) cout<< v[i] << " "; cout<<endl;
+		tree.printSegTree();
+	}
+}
