@@ -71,3 +71,56 @@ void solutioN()
     ll sz = primes.size();
     cout<< sz <<endl;
 }
+
+
+/*fourth*/
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+vector<int> primes;
+void generate_primes() {
+    const int LIMIT = sqrt(1e9); // ~31623
+    vector<bool> sieve(LIMIT + 1, true);
+    sieve[0] = sieve[1] = false;
+    for (int i = 2; i * i <= LIMIT; ++i) {
+        if (sieve[i]) {
+            for (int j = i * i; j <= LIMIT; j += i) {
+                sieve[j] = false;
+            }
+        }
+    }
+    for (int i = 2; i <= LIMIT; ++i) {
+        if (sieve[i]) {
+            primes.push_back(i);
+        }
+    }
+}
+
+bool is_prime(int n) {
+    if (n <= 1) return false;
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+    int sqrt_n = sqrt(n);
+    for (int p : primes) {
+        if (p > sqrt_n) break;
+        if (n % p == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    generate_primes(); // Precompute primes once
+    
+    int num;
+    cout << "Enter a number (<= 1e9): ";
+    cin >> num;
+    
+    if (is_prime(num)) {
+        cout << num << " is prime." << endl;
+    } else {
+        cout << num << " is not prime." << endl;
+    }
+    
+    return 0;
+}
