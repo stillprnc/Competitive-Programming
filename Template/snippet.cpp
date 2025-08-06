@@ -51,9 +51,10 @@
 
 
 
-            "\n\n\n\n\n\n/*                                Ⓒ All rights reserved to Prnc                              */"
+            "\n\n\n\n\n\n/*                                Ⓒ                              */"
 
 		],
 		"description": "This is a boilerplate"
 	}
 }
+
